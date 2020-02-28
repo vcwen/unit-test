@@ -16,9 +16,11 @@ pipeline {
       steps {
         script {
           withDockerNetwork{ n ->
-            docker.image('mongo:5').withRun("--network ${n} --name mongo") {}
-            docker.image('node:12').withRun("--network ${n} --name app") {
+            docker.image('mongo:4').withRun("--network ${n} --hostname mongo") {}
+            docker.image('node:12').inside("--network ${n}") {
               sh 'node --version'
+              sh 'ls .'
+              sh 'node src/index.js'
             }
           }
         }
