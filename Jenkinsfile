@@ -9,22 +9,20 @@ def withDockerNetwork(Closure inner) {
 }
 
 pipeline {
-  agent {
-    docker {
-      image 'node:12'
-    }
-
-  }
+  agent none 
   stages {
     stage('test') {
-      script {
-        withDockerNetwork{ n ->
-          docker.image('mongo:5').withRun("--network ${n} --name mongo")
-          sh "node .src/index.js"
+      agent any
+      steps {
+        script {
+          withDockerNetwork{ n ->
+            docker.image('mongo:5').withRun("--network ${n} --name mongo") {}
+            docker.image('node:12').withRun("--network ${n} --name app") {
+              sh 'node --version'
+            }
+          }
         }
-        
       }
     }
-
   }
 }
