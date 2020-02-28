@@ -1,0 +1,11 @@
+{
+  "name": "unit-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/vcwen/unit-test.git",
+  "author": "vincent.wen <wenwei1202@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "mongodb": "^3.5.4"
+  }
+}
